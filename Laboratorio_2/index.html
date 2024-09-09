@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laboratorio_2</title>
+    <!-- Enlace a Google Fonts para cargar la fuente Montserrat -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* CSS Global para aplicar la fuente Montserrat a todo el documento */
+      body {
+        font-family: "Montserrat", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Titulo -->
+    <h1>Jack García - Laboratorio #2 - 1GS221</h1>
+
+    <!-- Ejercicio 1 -->
+    <h2>Ejercicio 1</h2>
+    <p id="respuesta"></p>
+
+    <!-- Ejercicio 2 -->
+    <h2>Ejercicio 2</h2>
+    <h3>Ingrese dos números para realizar operaciones:</h3>
+    <input type="number" id="numero1" placeholder="Ingrese el primer número" />
+    <input type="number" id="numero2" placeholder="Ingrese el segundo número" />
+    <button onclick="realizarOperaciones()">Calcular Operaciones</button>
+
+    <!-- Ejercicio 6 -->
+    <h2>Ejercicio 6</h2>
+    <h3>
+      Ingrese un número entero positivo para calcular la suma de múltiplos:
+    </h3>
+    <input
+      type="number"
+      id="numeroSuma"
+      placeholder="Ingrese un número entero positivo"
+    />
+    <button onclick="calcularSumaMultiplos()">
+      Calcular Suma de Múltiplos
+    </button>
+
+    <script>
+      // Ejercicio 1: ¿Qué es Javascript y en qué se asemeja a Java?
+      document.getElementById("respuesta").textContent =
+        "Java es un lenguaje de programación OOP, mientras que Java Script es un lenguaje de scripts OOP. Java crea aplicaciones que se ejecutan en una máquina o explorador virtual, mientras que el código JavaScript sólo se ejecuta en un explorador.";
+
+      // Ejercicio 2: Realizar operaciones aritméticas con los valores ingresados
+      function realizarOperaciones() {
+        var num1 = parseFloat(document.getElementById("numero1").value);
+        var num2 = parseFloat(document.getElementById("numero2").value);
+
+        if (isNaN(num1) || isNaN(num2)) {
+          alert("Por favor, ingrese valores numéricos válidos.");
+          return;
+        }
+
+        console.log("Suma:", num1 + num2);
+        console.log("Resta:", num1 - num2);
+        console.log("Multiplicación:", num1 * num2);
+        console.log("División:", num1 / num2);
+      }
+
+      // Ejercicio 3 (Reemplazado): Declarar dos variables con "let" y concatenarlas
+      function concatenarVariables() {
+        let variable1 = "Hola";
+        let variable2 = "Mundo";
+        let concatenacion = variable1 + " " + variable2;
+
+        // Imprimir la concatenación de las dos variables en la consola
+        console.log("Concatenación de variables 'let':", concatenacion);
+      }
+      concatenarVariables();
+
+      // Ejercicio 4 (Reemplazado): Declarar dos variables con "const" y verificar sus tipos de datos
+      function verificarTiposConst() {
+        const numero = 2000;
+        const texto = "Jack";
+
+        // Imprimir los tipos de datos de las variables en la consola
+        console.log(
+          "Tipo de dato de la primera variable 'const':",
+          typeof numero,
+          "(" + numero + ")"
+        );
+        console.log(
+          "Tipo de dato de la segunda variable 'const':",
+          typeof texto,
+          "(" + texto + ")"
+        );
+      }
+      verificarTiposConst();
+
+      // Ejercicio 5: Declarar un objeto con 4 llaves que contengan un número, un string, un booleano y un objeto vacío
+      const miObjeto = {
+        numero: 42, // Tipo Number
+        texto: "Hola Mundo", // Tipo String
+        esVerdadero: true, // Tipo Boolean
+        objetoVacio: {}, // Objeto vacío
+      };
+
+      // Mostrar el objeto en la consola
+      console.log("Objeto:", miObjeto);
+
+      // Ejercicio 6: Calcular la suma de múltiplos de 3 o 5 menores que el número dado
+      function calcularSumaMultiplos() {
+        const numero = parseInt(document.getElementById("numeroSuma").value);
+
+        if (isNaN(numero) || numero <= 0) {
+          alert("Por favor, ingrese un número entero positivo.");
+          return;
+        }
+
+        let suma = 0;
+        for (let i = 1; i < numero; i++) {
+          if (i % 3 === 0 || i % 5 === 0) {
+            suma += i;
+          }
+        }
+        console.log(
+          "Suma de múltiplos de 3 o 5 menores que",
+          numero,
+          "es:",
+          suma
+        );
+      }
+    </script>
+  </body>
+</html>

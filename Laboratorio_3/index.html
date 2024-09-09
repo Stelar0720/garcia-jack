@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Problemas de Lógica Matemática</title>
+    <!-- Enlace a Google Fonts para Montserrat -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Jack García | Laboratorio #3 | 1GS221</h1>
+    <h2>Resolución de Problemas en JavaScript</h2>
+
+    <!-- Formulario para comprobar si un número es un palíndromo de doble base -->
+    <div>
+      <h2>Comprobar si un número es un palíndromo de doble base</h2>
+      <input type="text" id="palindromeInput" placeholder="Ingresa un número" />
+      <button onclick="checkDoubleBasePalindrome()">Comprobar</button>
+      <p id="palindromeResult"></p>
+    </div>
+
+    <!-- Formulario para contar caracteres en una cadena -->
+    <div>
+      <h2>Contar caracteres en una cadena</h2>
+      <input
+        type="text"
+        id="countCharactersInput"
+        placeholder="Ingresa una cadena"
+      />
+      <button onclick="countCharacters()">Contar</button>
+      <p id="countCharactersResult"></p>
+    </div>
+
+    <!-- Formulario para comprobar si un año es bisiesto -->
+    <div>
+      <h2>Comprobar si un año es bisiesto</h2>
+      <input type="number" id="leapYearInput" placeholder="Ingresa un año" />
+      <button onclick="checkLeapYear()">Comprobar</button>
+      <p id="leapYearResult"></p>
+    </div>
+
+    <!-- Formulario para sumar números primos debajo de un número dado -->
+    <div>
+      <h2>Sumar números primos debajo de un número dado</h2>
+      <input
+        type="number"
+        id="sumPrimesInput"
+        placeholder="Ingresa un número"
+      />
+      <button onclick="sumPrimes()">Sumar</button>
+      <p id="sumPrimesResult"></p>
+    </div>
+
+    <script>
+      // Función para comprobar si un número es un palíndromo de doble base
+      function checkDoubleBasePalindrome() {
+        const t = document.getElementById("palindromeInput").value;
+        const isPalindrome = (str) => str === str.split("").reverse().join("");
+        const num = parseInt(t);
+        const base10 = num.toString();
+        const base2 = num.toString(2);
+
+        if (isPalindrome(base10) && isPalindrome(base2)) {
+          document.getElementById(
+            "palindromeResult"
+          ).innerText = `${t} es un palíndromo de doble base.`;
+        } else {
+          document.getElementById(
+            "palindromeResult"
+          ).innerText = `${t} no es un palíndromo de doble base.`;
+        }
+      }
+
+      // Función para contar caracteres en una cadena
+      function countCharacters() {
+        const t = document.getElementById("countCharactersInput").value;
+        const charCount = {};
+
+        for (let char of t) {
+          charCount[char] = (charCount[char] || 0) + 1;
+        }
+
+        let result = "";
+        for (const [char, count] of Object.entries(charCount)) {
+          result += `${char}: ${count}, `;
+        }
+
+        document.getElementById("countCharactersResult").innerText =
+          result.slice(0, -2);
+      }
+
+      // Función para comprobar si un año es bisiesto
+      function checkLeapYear() {
+        const a = parseInt(document.getElementById("leapYearInput").value);
+        const isLeapYear = (a % 4 === 0 && a % 100 !== 0) || a % 400 === 0;
+
+        document.getElementById("leapYearResult").innerText = isLeapYear
+          ? `${a} es un año bisiesto.`
+          : `${a} no es un año bisiesto.`;
+      }
+
+      // Función para sumar todos los números primos debajo de un número dado
+      function sumPrimes() {
+        const n = parseInt(document.getElementById("sumPrimesInput").value);
+
+        const isPrime = (num) => {
+          if (num < 2) return false;
+          for (let i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i === 0) return false;
+          }
+          return true;
+        };
+
+        let sum = 0;
+        for (let i = 2; i <= n; i++) {
+          if (isPrime(i)) {
+            sum += i;
+          }
+        }
+
+        document.getElementById(
+          "sumPrimesResult"
+        ).innerText = `La suma de todos los números primos debajo de ${n} es ${sum}.`;
+      }
+    </script>
+  </body>
+</html>
