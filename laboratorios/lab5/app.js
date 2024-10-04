@@ -1,15 +1,10 @@
-// MODULE PATTERN
-
 const TextModule = (function () {
-  // Variables privadas
   let color = "red";
 
-  // Función privada para invertir el texto
   function reverseText(text) {
     return text.split("").reverse().join("");
   }
 
-  // Función privada para cambiar el color del texto
   function updateColor(newColor) {
     color = newColor;
   }
