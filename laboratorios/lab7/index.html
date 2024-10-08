@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+      }
+      .candidato {
+        margin-bottom: 15px;
+      }
+      .bar {
+        height: 25px;
+        background-color: lightgray;
+        border-radius: 5px;
+        position: relative;
+        margin-top: 20px;
+        width: 100%;
+        overflow: hidden;
+        display: flex;
+      }
+      .bar-fill {
+        height: 100%;
+        border-radius: 5px;
+      }
+      .nombreCandidato {
+        font-weight: bold;
+      }
+      .controls {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Votación</h1>
+
+    <div>
+      <label for="nombreCandidato">Nombre del Candidato:</label>
+      <input type="text" id="nombreCandidato" />
+      <label for="colorCandidato">Color:</label>
+      <input type="color" id="colorCandidato" />
+      <button onclick="SistemaVotacion.agregarCandidato()">
+        Agregar Candidato
+      </button>
+    </div>
+
+    <div id="listaCandidatos"></div>
+
+    <div>
+      <h3>Progreso de Votos</h3>
+      <div class="bar" id="barraTotal"></div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
