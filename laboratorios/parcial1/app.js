@@ -1,5 +1,6 @@
 const NumberGeneratorModule = (function () {
   let numerosGenerados = new Set();
+  let numerosArray = [];
 
   function generarNumeroAleatorio() {
     if (numerosGenerados.size >= 99) {
@@ -13,6 +14,7 @@ const NumberGeneratorModule = (function () {
     } while (numerosGenerados.has(numero));
 
     numerosGenerados.add(numero);
+    numerosArray.push(numero);
     crearCajaNumero(numero);
   }
 
@@ -24,11 +26,34 @@ const NumberGeneratorModule = (function () {
     numberContainer.appendChild(box);
   }
 
+  function ordenarNumeros(ascendente = true) {
+    const numberContainer = document.getElementById("number-container");
+    numberContainer.innerHTML = "";
+    const sortedArray = ascendente
+      ? numerosArray.slice().sort((a, b) => a - b)
+      : numerosArray.slice().sort((a, b) => b - a);
+
+    sortedArray.forEach((numero) => crearCajaNumero(numero));
+  }
+
   return {
     generarNumeroAleatorio: generarNumeroAleatorio,
+    ordenarNumeros: ordenarNumeros,
   };
 })();
 
 document.getElementById("btn-generar").addEventListener("click", function () {
   NumberGeneratorModule.generarNumeroAleatorio();
 });
+
+document
+  .getElementById("btn-ordenar-asc")
+  .addEventListener("click", function () {
+    NumberGeneratorModule.ordenarNumeros(true);
+  });
+
+document
+  .getElementById("btn-ordenar-desc")
+  .addEventListener("click", function () {
+    NumberGeneratorModule.ordenarNumeros(false);
+  });
