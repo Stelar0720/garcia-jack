@@ -14,37 +14,38 @@ body {
 .button-group {
   display: flex;
   justify-content: space-between;
-  top: 50%;
   width: 100%;
 }
 
 .input-group {
   display: flex;
   justify-content: space-between;
-  gap: 10px; /* Añade un pequeño espacio entre los elementos */
+  gap: 10px;
   width: 100%;
 }
 
 .input-wrapper {
   display: flex;
   flex-direction: column;
-  width: 100%; /* Asegura que ambos elementos tengan el mismo ancho */
+  width: 100%;
 }
 
 .input-wrapper label {
-  margin-bottom: 4px; /* Añade un pequeño espacio entre la etiqueta y el campo */
+  margin-bottom: 4px;
   font-weight: bold;
 }
 
 input[type="text"],
 select {
-  width: 100%; /* Ambos elementos ocupan el 100% del ancho disponible en su contenedor */
+  width: 100%;
   padding: 8px;
   box-sizing: border-box;
-  height: 40px; /* Establece la misma altura para ambos */
-  font-size: 16px; /* Asegura que el tamaño de la fuente sea consistente */
+  height: 40px;
+  font-size: 16px;
   line-height: normal;
   vertical-align: middle;
+  border-radius: 10px;
+  background-color: #e8e8e8;
 }
 
 main {
@@ -85,7 +86,7 @@ section > img:hover {
 
 h1 {
   margin-bottom: 1rem;
-  text-align: start;
+  font-size: 1.5rem;
   color: #333;
 }
 
@@ -130,35 +131,36 @@ button:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 
-.pokemon-details__header {
-  text-align: center;
-  font-weight: bold;
-  margin-bottom: 10px;
+.pokemon-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.pokemon-details__content {
+.main-details {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 20px;
 }
 
-.pokemon-details__section {
-  text-align: center;
-}
-
-.pokemon-details__section h3 {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.pokemon-details__sprites {
+.additional-info {
   display: flex;
-  gap: 10px;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 20px;
 }
 
-.pokemon-details__sprites img {
-  width: 90px;
+/*.evolution-chain,
+.abilities {
+  width: 48%;
+}*/
+
+.sprites,
+.evolution-chain,
+.weight-height,
+.abilities {
+  width: 50% !important; /* Asigna el mismo ancho */
 }

@@ -1,73 +1,138 @@
-const POKEAPI_URL = "https://pokeapi.co/api/v2/pokemon";
+const PokemonModule = (() => {
+  const form = document.getElementById("pokemon-form");
+  const searchType = document.getElementById("pokemon-hability-select");
+  const pokemonDetails = document.getElementById("pokemon-details");
 
-// Función para limpiar el nombre
-const sanitizeName = (name) => {
-  return name
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z]/g, "");
-};
+  async function handleSearch(event) {
+    event.preventDefault();
+    pokemonDetails.innerHTML = "";
 
-// Función para obtener datos del Pokémon
-const getPokemon = async (name) => {
-  try {
-    const response = await fetch(`${POKEAPI_URL}/${name}`);
-    if (!response.ok) throw new Error("Pokémon no encontrado");
-    return await response.json();
-  } catch (error) {
-    console.error("Error al obtener el Pokémon:", error);
-    return null;
+    const pokemonName = form.elements["pokemon-name"].value.toLowerCase();
+    const selectedOption = searchType.value;
+
+    if (selectedOption === "pokemon") {
+      await fetchPokemonData(pokemonName);
+    } else {
+      pokemonDetails.innerHTML = `<p>Busca por habilidad no está implementado aún.</p>`;
+    }
   }
-};
 
-// Función para renderizar la información del Pokémon
-const renderPokemon = (template, pokemon) => {
-  if (!pokemon) return;
+  async function fetchPokemonData(pokemonName) {
+    try {
+      const response = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
+      );
+      if (!response.ok) throw new Error("Pokémon no encontrado");
+      const pokemonData = await response.json();
 
-  const { id, name, sprites, weight, height } = pokemon;
-  const html = `
-    <div class="pokemon-details">
-      <div class="pokemon-details__header">
-        <h1>${name.charAt(0).toUpperCase() + name.slice(1)} (${id})</h1>
-      </div>
-      <div class="pokemon-details__content">
-        <div class="pokemon-details__section">
-          <h3>Sprites</h3>
-          <div class="pokemon-details__sprites">
-            <img src="${sprites.front_default}" alt="${name} front" />
-            <img src="${sprites.back_default}" alt="${name} back" />
+      const id = pokemonData.id;
+      const frontSprite = pokemonData.sprites.front_default;
+      const backSprite = pokemonData.sprites.back_default;
+      const weight = pokemonData.weight;
+      const height = pokemonData.height;
+      const abilities = pokemonData.abilities.map(
+        (ability) => ability.ability.name
+      );
+
+      const speciesResponse = await fetch(pokemonData.species.url);
+      const speciesData = await speciesResponse.json();
+      const evolutionChainUrl = speciesData.evolution_chain.url;
+      const evolutionChain = await fetchEvolutionChain(evolutionChainUrl);
+
+      displayPokemonDetails({
+        id,
+        name: pokemonName,
+        frontSprite,
+        backSprite,
+        weight,
+        height,
+        abilities,
+        evolutionChain,
+      });
+    } catch (error) {
+      pokemonDetails.innerHTML = `<p>Error: ${error.message}</p>`;
+    }
+  }
+
+  async function fetchEvolutionChain(url) {
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      const chain = [];
+
+      let current = data.chain;
+      while (current) {
+        chain.push(current.species.name);
+        current = current.evolves_to[0];
+      }
+
+      return chain;
+    } catch (error) {
+      return ["No disponible"];
+    }
+  }
+
+  function displayPokemonDetails({
+    id,
+    name,
+    frontSprite,
+    backSprite,
+    weight,
+    height,
+    abilities,
+    evolutionChain,
+  }) {
+    pokemonDetails.innerHTML = `
+      <h2>${capitalizeFirstLetter(name)} (#${id})</h2>
+      <div class="pokemon-info">
+        <!-- Main Details Section -->
+        <div class="main-details">
+          <div class="sprites">
+            <h3>Sprites</h3>
+            <img src="${frontSprite}" alt="${name} front">
+            <img src="${backSprite}" alt="${name} back">
+          </div>
+          <div class="weight-height">
+            <h3>Weight / Height</h3>
+            <p>${weight / 10} kg / ${height / 10} m</p>
           </div>
         </div>
-        <div class="pokemon-details__section">
-          <h3>Weight / Height</h3>
-          <p class="pokemon-details__info">${weight / 10} kg / ${
-    height / 10
-  } m</p>
+        <!-- Additional Info Section -->
+        <div class="additional-info">
+          <div class="evolution-chain">
+            <h3>Evolution Chain</h3>
+            <ul>
+              ${evolutionChain
+                .map(
+                  (evolution) => `<li>${capitalizeFirstLetter(evolution)}</li>`
+                )
+                .join("")}
+            </ul>
+          </div>
+          <div class="abilities">
+            <h3>Abilities</h3>
+            <ul>
+              ${abilities
+                .map((ability) => `<li>${capitalizeFirstLetter(ability)}</li>`)
+                .join("")}
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-  `;
-  template.innerHTML = html;
-};
+    `;
+  }
 
-// Función para limpiar los resultados
-const clearResults = () => {
-  document.getElementById("pokemon-details").innerHTML = "";
-  document.querySelector('input[name="pokemon-name"]').value = "";
-};
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
-// Lógica de interacción con el DOM
-const form = document.getElementById("pokemon-form");
-const input = form.querySelector('input[name="pokemon-name"]');
-const pokemonDetails = document.getElementById("pokemon-details");
+  function init() {
+    form.addEventListener("submit", handleSearch);
+  }
 
-// Evento para el envío del formulario
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const sanitizedInput = sanitizeName(input.value);
-  if (!sanitizedInput) return; // Si no hay entrada, no hacer nada
+  return {
+    init,
+  };
+})();
 
-  clearResults(); // Limpiar resultados previos
-  const pokemon = await getPokemon(sanitizedInput);
-  renderPokemon(pokemonDetails, pokemon);
-});
+document.addEventListener("DOMContentLoaded", PokemonModule.init);
