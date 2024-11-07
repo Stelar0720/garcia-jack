@@ -1,34 +1,49 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Buscador de Pokemon</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="app.js" type="module"></script>
-</head>
-<link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-<body>
+  </head>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <body>
     <main>
-        <section>
-            <img 
-            src="https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png" 
-            alt="PokéAPI Logo"
-            />
+      <section>
+        <img
+          src="https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png"
+          alt="PokéAPI Logo"
+        />
         <h1>Buscador de Pokémon</h1>
         <form id="pokemon-form">
-            <label for="pokemon-name">Busca desde pokémones hasta las habilidades de los mismos.</label>
-            <input type="text" placeholder="Buscar Pokémon" name="pokemon-name" />
-            <div class="button-group">
-                <button type="button" onclick="clearResults()">Limpiar</button>
-                <button type="submit">Buscar</button>
+          <label for="pokemon-name"
+            >Busca desde pokémones hasta las habilidades de los mismos.</label
+          >
+          <div class="input-group">
+            <div class="input-wrapper">
+              <label for="pokemon-name-input">Buscar</label>
+              <input type="text" name="pokemon-name" id="pokemon-name-input" />
             </div>
-        </form>    
-        </section>
-        <section id="pokemon-details"></section>
+            <div class="input-wrapper">
+              <label for="pokemon-hability-select">Tipo de Búsqueda</label>
+              <select name="pokemon-hability" id="pokemon-hability-select">
+                <option value="pokemon">Por Pokémon</option>
+                <option value="ability">Por Habilidad</option>
+              </select>
+            </div>
+          </div>
+          <div class="button-group">
+            <button type="button" onclick="clearResults()">Limpiar</button>
+            <button type="submit">Buscar</button>
+          </div>
+        </form>
+      </section>
+      <section id="pokemon-details"></section>
     </main>
-</body>
+  </body>
 </html>
