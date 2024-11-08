@@ -2,18 +2,31 @@ const PokemonModule = (() => {
   const form = document.getElementById("pokemon-form");
   const searchType = document.getElementById("pokemon-hability-select");
   const pokemonDetails = document.getElementById("pokemon-details");
+  const clearButton = form.querySelector('button[type="button"]');
+  const inputField = form.elements["pokemon-name"];
 
   async function handleSearch(event) {
     event.preventDefault();
     pokemonDetails.innerHTML = "";
 
-    const pokemonName = form.elements["pokemon-name"].value.toLowerCase();
+    const searchValue = inputField.value.toLowerCase();
     const selectedOption = searchType.value;
 
+    if (searchValue.trim() === "") {
+      pokemonDetails.innerHTML = `<p>Por favor ingresa un valor para buscar.</p>`;
+      return;
+    }
+
+    // Mostrar botón "Limpiar" y la sección de detalles al hacer una búsqueda
+    clearButton.style.display = "inline-block";
+    pokemonDetails.style.display = "block";
+
     if (selectedOption === "pokemon") {
-      await fetchPokemonData(pokemonName);
+      await fetchPokemonData(searchValue);
+    } else if (selectedOption === "ability") {
+      await fetchPokemonByAbility(searchValue);
     } else {
-      pokemonDetails.innerHTML = `<p>Busca por habilidad no está implementado aún.</p>`;
+      pokemonDetails.innerHTML = `<p>Opción de búsqueda no válida.</p>`;
     }
   }
 
@@ -31,7 +44,7 @@ const PokemonModule = (() => {
       const weight = pokemonData.weight;
       const height = pokemonData.height;
       const abilities = pokemonData.abilities.map(
-        (ability) => ability.ability.name
+        (ability) => `${ability.ability.name}${ability.is_hidden ? ' 👁️' : ''}`
       );
 
       const speciesResponse = await fetch(pokemonData.species.url);
@@ -54,6 +67,50 @@ const PokemonModule = (() => {
     }
   }
 
+  async function fetchPokemonByAbility(abilityName) {
+    try {
+      const response = await fetch(
+        `https://pokeapi.co/api/v2/ability/${abilityName}`
+      );
+      if (!response.ok) throw new Error("Habilidad no encontrada");
+      const abilityData = await response.json();
+  
+      const pokemonList = abilityData.pokemon.map((entry) => ({
+        name: entry.pokemon.name,
+        is_hidden: entry.is_hidden,
+      }));
+  
+      displayPokemonListByAbility(abilityName, pokemonList);
+    } catch (error) {
+      pokemonDetails.innerHTML = `<p>Error: ${error.message}</p>`;
+    }
+  }
+  
+
+  function displayPokemonListByAbility(abilityName, pokemonList) {
+    pokemonDetails.innerHTML = `  
+      <div class="habilidad">
+      <h2>${capitalizeFirstLetter(abilityName)}</h2>
+        <div class="header-habilidad">
+        <h3>Who can learn it?</h3>
+        <div class="lista-habilidad">
+        <ul>
+          ${pokemonList
+            .map(
+              (pokemon) =>
+                `<li>${capitalizeFirstLetter(pokemon.name)}${
+                  pokemon.is_hidden ? " 👁️" : ""
+                }</li>`
+            )
+            .join("")}
+        </ul>
+        </div>
+        </div>
+        </div>
+      `;
+  }
+  
+
   async function fetchEvolutionChain(url) {
     try {
       const response = await fetch(url);
@@ -62,7 +119,7 @@ const PokemonModule = (() => {
 
       let current = data.chain;
       while (current) {
-        chain.push(current.species.name);
+        chain.push(`${current.species.name}${current.is_baby ? ' 👶' : ''}`);
         current = current.evolves_to[0];
       }
 
@@ -85,7 +142,6 @@ const PokemonModule = (() => {
     pokemonDetails.innerHTML = `
       <h2>${capitalizeFirstLetter(name)} (#${id})</h2>
       <div class="pokemon-info">
-        <!-- Main Details Section -->
         <div class="main-details">
           <div class="sprites">
             <h3>Sprites</h3>
@@ -97,10 +153,10 @@ const PokemonModule = (() => {
             <p>${weight / 10} kg / ${height / 10} m</p>
           </div>
         </div>
-        <!-- Additional Info Section -->
         <div class="additional-info">
           <div class="evolution-chain">
             <h3>Evolution Chain</h3>
+            <div class="lista-puntos">
             <ul>
               ${evolutionChain
                 .map(
@@ -108,14 +164,17 @@ const PokemonModule = (() => {
                 )
                 .join("")}
             </ul>
+            </div>
           </div>
           <div class="abilities">
             <h3>Abilities</h3>
+            <div class="lista-puntos">
             <ul>
               ${abilities
                 .map((ability) => `<li>${capitalizeFirstLetter(ability)}</li>`)
                 .join("")}
             </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -126,8 +185,16 @@ const PokemonModule = (() => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
+  function clearResults() {
+    inputField.value = ""; // Limpiar el campo de entrada
+    pokemonDetails.innerHTML = ""; // Limpiar los resultados
+    pokemonDetails.style.display = "none"; // Ocultar los resultados
+    clearButton.style.display = "none"; // Ocultar el botón de limpiar
+  }
+
   function init() {
     form.addEventListener("submit", handleSearch);
+    clearButton.addEventListener("click", clearResults);
   }
 
   return {
@@ -136,3 +203,10 @@ const PokemonModule = (() => {
 })();
 
 document.addEventListener("DOMContentLoaded", PokemonModule.init);
+
+
+
+
+
+
+
