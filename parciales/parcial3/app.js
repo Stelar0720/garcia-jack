@@ -44,7 +44,7 @@ const PokemonModule = (() => {
       const weight = pokemonData.weight;
       const height = pokemonData.height;
       const abilities = pokemonData.abilities.map(
-        (ability) => `${ability.ability.name}${ability.is_hidden ? ' 👁️' : ''}`
+        (ability) => `${ability.ability.name}${ability.is_hidden ? " 👁️" : ""}`
       );
 
       const speciesResponse = await fetch(pokemonData.species.url);
@@ -74,18 +74,17 @@ const PokemonModule = (() => {
       );
       if (!response.ok) throw new Error("Habilidad no encontrada");
       const abilityData = await response.json();
-  
+
       const pokemonList = abilityData.pokemon.map((entry) => ({
         name: entry.pokemon.name,
         is_hidden: entry.is_hidden,
       }));
-  
+
       displayPokemonListByAbility(abilityName, pokemonList);
     } catch (error) {
       pokemonDetails.innerHTML = `<p>Error: ${error.message}</p>`;
     }
   }
-  
 
   function displayPokemonListByAbility(abilityName, pokemonList) {
     pokemonDetails.innerHTML = `  
@@ -109,7 +108,6 @@ const PokemonModule = (() => {
         </div>
       `;
   }
-  
 
   async function fetchEvolutionChain(url) {
     try {
@@ -117,11 +115,21 @@ const PokemonModule = (() => {
       const data = await response.json();
       const chain = [];
 
-      let current = data.chain;
-      while (current) {
-        chain.push(`${current.species.name}${current.is_baby ? ' 👶' : ''}`);
-        current = current.evolves_to[0];
+      function processEvolution(chainNode) {
+        if (chainNode) {
+          // Agregar el Pokémon actual a la cadena de evolución
+          chain.push(
+            `${chainNode.species.name}${chainNode.is_baby ? " 👶" : ""}`
+          );
+
+          // Procesar todas las evoluciones posibles
+          chainNode.evolves_to.forEach((evolution) =>
+            processEvolution(evolution)
+          );
+        }
       }
+
+      processEvolution(data.chain); // Iniciar con la primera cadena
 
       return chain;
     } catch (error) {
@@ -203,10 +211,3 @@ const PokemonModule = (() => {
 })();
 
 document.addEventListener("DOMContentLoaded", PokemonModule.init);
-
-
-
-
-
-
-
