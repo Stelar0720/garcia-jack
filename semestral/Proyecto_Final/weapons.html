@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valorant Weapons</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="weapons.css" />
+    <script type="module" src="app.js" defer></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">
+        <img src="logo.png" alt="Valorant Logo" />
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="agents.html">Agentes</a></li>
+          <li><a href="maps.html">Mapas</a></li>
+          <li><a href="weapons.html">Armas</a></li>
+          <li><a href="player.html">Buscar Jugador</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="content">
+      <div class="sidebar">
+        <h2>Filter by Type</h2>
+        <label><input type="checkbox" value="Pistol" /> Pistol</label>
+        <label><input type="checkbox" value="Rifle" /> Rifle</label>
+        <label><input type="checkbox" value="SMG" /> SMG</label>
+        <label><input type="checkbox" value="Sniper" /> Sniper</label>
+      </div>
+
+      <main class="main-content">
+        <div class="cards-container" id="weaponsContainer"></div>
+      </main>
+    </div>
+
+    <footer>
+      <p>© 2024 Valorant Dashboard - Proyecto educativo</p>
+    </footer>
+  </body>
+</html>

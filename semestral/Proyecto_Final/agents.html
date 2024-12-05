@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agents - Valorant Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="agents.css" />
+    <script type="module" src="app.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="logo">
+        <img src="logo.png" alt="Valorant Logo" />
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="agents.html">Agentes</a></li>
+          <li><a href="maps.html">Mapas</a></li>
+          <li><a href="weapons.html">Armas</a></li>
+          <li><a href="player.html">Buscar Jugador</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="container">
+      <main>
+        <section class="search-section">
+          <div class="search-bar">
+            <input
+              type="text"
+              placeholder="Search agents..."
+              id="agent-search"
+            />
+            <button id="search-btn">Search</button>
+          </div>
+          <div class="role-filters">
+            <button class="filter-btn" data-role="Duelist">Duelist</button>
+            <button class="filter-btn" data-role="Initiator">Initiator</button>
+            <button class="filter-btn" data-role="Sentinel">Sentinel</button>
+            <button class="filter-btn" data-role="Controller">
+              Controller
+            </button>
+          </div>
+        </section>
+
+        <section class="agents-section">
+          <div id="agents-list" class="agents-grid"></div>
+        </section>
+      </main>
+    </div>
+    <footer>
+      <p>© 2024 Valorant Dashboard - Proyecto educativo</p>
+    </footer>
+  </body>
+</html>

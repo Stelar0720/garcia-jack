@@ -1,0 +1,64 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  line-height: 1.6;
+  color: white;
+  background-color: #0c1824;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #20232a;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+  height: 70px;
+  margin-right: 10px;
+}
+
+.logo h1 {
+  font-size: 18px;
+  color: #ff4c5a;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
+
+.nav-links a.active,
+.nav-links a:hover {
+  color: #ff4c5a;
+}
+
+.container {
+  display: flex;
+  min-height: calc(100vh - 120px); /* Resta el espacio del header y footer */
+}
+
+/*Footer*/
+footer {
+  background-color: #20232a;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+}

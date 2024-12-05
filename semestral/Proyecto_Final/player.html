@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valorant Dashboard - Buscar Jugador</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="players.css" />
+    <script type="module" src="app.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">
+        <img src="logo.png" alt="Valorant Logo" />
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="agents.html">Agentes</a></li>
+          <li><a href="maps.html">Mapas</a></li>
+          <li><a href="weapons.html">Armas</a></li>
+          <li><a href="player.html" class="active">Buscar Jugador</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main-content">
+      <div class="search-container">
+        <input
+          type="text"
+          id="username"
+          placeholder="Nombre de Usuario (sin #)"
+        />
+        <input type="text" id="tag" placeholder="Tag (ej. 1234)" />
+        <select id="region">
+          <option value="la1">LAN</option>
+          <option value="na1">NA</option>
+          <option value="euw1">EUW</option>
+          <option value="kr">KR</option>
+        </select>
+        <button id="search-button" class="search-button">Buscar</button>
+      </div>
+
+      <div id="player-data" class="player-data"></div>
+    </main>
+
+    <footer>
+      <p>© 2024 Valorant Dashboard - Proyecto educativo</p>
+    </footer>
+  </body>
+</html>

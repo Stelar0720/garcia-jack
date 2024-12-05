@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valorant Dashboard - Home</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="home.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">
+        <img src="logo.png" alt="Valorant Logo" />
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Inico</a></li>
+          <li><a href="agents.html">Agentes</a></li>
+          <li><a href="maps.html">Mapas</a></li>
+          <li><a href="weapons.html">Armas</a></li>
+          <li><a href="player.html">Buscar Jugador</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="welcome-title">
+        <h1>Bienvenido al Dashboard de Valorant</h1>
+      </div>
+      <p>
+        Explora información sobre agentes, mapas, armas y estadísticas de
+        jugadores del juego de Riot Games.
+      </p>
+
+      <section class="carousel-container">
+        <h2>Explora Valorant</h2>
+        <div class="carousel">
+          <div class="carousel-item">
+            <img src="image1.jpg" alt="Imagen de Valorant 1" />
+            <div class="carousel-caption">Toxicidad</div>
+          </div>
+          <div class="carousel-item">
+            <img src="image2.jpg" alt="Imagen de Valorant 2" />
+            <div class="carousel-caption">Trolls</div>
+          </div>
+          <div class="carousel-item">
+            <img src="image3.jpg" alt="Imagen de Valorant 3" />
+            <div class="carousel-caption">Mala Punteria</div>
+          </div>
+        </div>
+        <button class="prev" onclick="moveCarousel(-1)">&#10094;</button>
+        <button class="next" onclick="moveCarousel(1)">&#10095;</button>
+      </section>
+
+      <section>
+        <h2>¿Qué es Valorant?</h2>
+        <p>
+          Valorant es un juego de disparos en primera persona basado en equipos,
+          desarrollado por Riot Games. Combina habilidades únicas de agentes con
+          estrategias tácticas intensas.
+        </p>
+      </section>
+      <section>
+        <h2>Explora nuestras funciones</h2>
+        <ul>
+          <li>Conoce a los agentes y sus habilidades únicas.</li>
+          <li>Explora mapas estratégicos con puntos de interés.</li>
+          <li>Consulta detalles sobre las armas del juego.</li>
+          <li>Busca estadísticas y desempeño de jugadores.</li>
+        </ul>
+      </section>
+    </main>
+    <footer>
+      <p>© 2024 Valorant Dashboard - Proyecto educativo</p>
+    </footer>
+
+    <script>
+      let currentIndex = 0;
+
+      function moveCarousel(step) {
+        const items = document.querySelectorAll(".carousel-item");
+        const totalItems = items.length;
+
+        currentIndex += step;
+        if (currentIndex >= totalItems) {
+          currentIndex = 0;
+        } else if (currentIndex < 0) {
+          currentIndex = totalItems - 1;
+        }
+
+        const newTransformValue = -100 * currentIndex + "%";
+        document.querySelector(
+          ".carousel"
+        ).style.transform = `translateX(${newTransformValue})`;
+      }
+
+      setInterval(() => moveCarousel(1), 4000);
+    </script>
+  </body>
+</html>

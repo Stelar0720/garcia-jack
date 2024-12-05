@@ -1,0 +1,147 @@
+.container {
+  flex: 1;
+  padding: 30px;
+  background-color: #fafafa;
+  border-left: 1px solid #e0e0e0;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.navbar h1 {
+  font-size: 1.5em;
+  color: #222;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: #555;
+  font-weight: bold;
+}
+
+.navbar ul .active a {
+  color: #ff4655;
+}
+
+/* Search Section */
+.search-section {
+  margin: 20px 0;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  justify-content: flex-start;
+  /* Alinea el buscador hacia la izquierda */
+  gap: 10px;
+  /* Espacio entre el botón y el campo */
+}
+
+.search-bar button {
+  padding: 10px;
+  background-color: #ff4655;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.search-bar input {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Role Filters */
+.role-filters {
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.filter-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: white;
+  color: #ff4655;
+  cursor: pointer;
+  font-weight: bold;
+  border: 2px solid #ff4655;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background-color: #ff4655;
+  color: white;
+}
+
+/* Agents Section */
+.agents-grid {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos se distribuyan en varias filas */
+  gap: 20px; /* Espaciado entre los elementos */
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: stretch; /* Asegura que todos tengan la misma altura */
+  padding: 20px;
+}
+
+/* Estilo de las tarjetas de agentes */
+.agent-card {
+  flex: 1 1 calc(25% - 20px); /* Cada tarjeta ocupará aproximadamente el 25% del ancho menos el espacio entre tarjetas */
+  max-width: calc(25% - 20px); /* Asegura que no se desborden */
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  text-align: center;
+  padding: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.agent-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.agent-card img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* Hace que las imágenes sean redondas */
+  background-color: #eee;
+  margin-bottom: 10px;
+}
+
+.agent-card h3 {
+  margin: 10px 0;
+  font-size: 1.2em;
+}
+
+.agent-card p {
+  margin: 5px 0;
+  color: #777;
+}
+
+.agent-name {
+  color: #ff4655;
+}
