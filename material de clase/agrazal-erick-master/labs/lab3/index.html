@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      color: white;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 90vh;
+      width: 100vw;
+    }
+    main {
+      width: 70vw;
+    }
+    fieldset {
+      border-radius: 5px;
+    }
+    div, button {
+      width: 100%;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.3rem;
+    }
+
+    form > div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section>
+      <fieldset>
+        <form>
+          <div>
+            <label>Cadena: </label>
+            <input type="text" id="problema-1-cadena" name="cadena" required>
+          </div>
+          <button>Número:</button>
+        </form>
+        <div id="response1"></div>
+      </fieldset>
+    </section>
+    <section>
+      <fieldset>
+        <form id="form2">
+          <div>
+            <label>Cadena: </label>
+            <input type="text" id="cadena2" name="cadena2" required>
+          </div>
+          <button>Calcular</button>
+        </form>
+        <div id="response2"></div>
+      </fieldset>
+    </section>
+  </main>
+<script>
+  const Utils = (() => {
+    const isPalindrome = (n) => {
+      return String(n) === String(n).split('').reverse().join('');
+    }
+
+    return {
+      isDoubleBasePalindrome(n) {
+        const decimal = Number(n).toString(10);
+        const binary = Number(n).toString(2);
+        return isPalindrome(decimal) && isPalindrome(binary);
+      },
+      characterCount(c) {
+        const counter = {};
+        String(c).split('').forEach((_c) => {
+          counter[_c] = counter[_c] ? counter[_c] + 1 : 1;
+        })
+        return counter;
+      }
+    }
+  })();
+  const App = (({ characterCount, isDoubleBasePalindrome }) => {
+    const htmlElements = {
+      // Problema #1
+      cadena: document.querySelector('#problema-1-cadena'),
+      form: document.querySelector('form'),
+      response: document.querySelector('#response1'),
+
+      // Problema #2
+      form2: document.querySelector('#form2'),
+      response2: document.querySelector('#response2'),
+    };
+
+    const handlers = {
+      onFormSubmit(e) {
+        e.preventDefault();
+        const cadena = htmlElements.cadena.value;
+        const isValid = isDoubleBasePalindrome(cadena);
+        const color = isValid ? 'green' : 'red';
+        // htmlElements.response.textContent = `La cadena ${isValid ? 'es' : 'no es'} doblemente palindromo.`;
+        htmlElements.response.innerHTML = `<span style="color: ${color}">La cadena ${isValid ? 'es' : 'no es'} doblemente palindromo.</span>`;
+      },
+      onFormSubmit2(e) {
+        e.preventDefault();
+        const cadena = e.target.elements.cadena2.value;
+        const counter = characterCount(cadena);
+        htmlElements.response2.innerHTML = `<ol>${Object.keys(counter).map(c => {
+          return `<li>Caracter: ${c} | Cantidad: ${counter[c]}</li>`;
+        }).join('')}</ol>`;
+      }
+    }
+
+    const bindEvents = () => {
+      htmlElements.form.addEventListener('submit', handlers.onFormSubmit);
+      htmlElements.form2.addEventListener('submit', handlers.onFormSubmit2);
+    }
+  
+    return {
+      init() {
+        bindEvents();
+      },
+    };
+  })(Utils);
+  console.log(Object.keys(App));
+  App.init();
+</script>
+</body>
+</html>
